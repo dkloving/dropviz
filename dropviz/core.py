@@ -15,10 +15,11 @@ def get_activation(variable):
     return hook
 
 
-def augment(model, layer, device, data, max_epochs, loss_tolerance, lr):
+def augment(model, layer, device, data, n, max_epochs, loss_tolerance, lr):
 
     # copy and send the data and model to the device
-    data = data.detach().clone().to(device)
+    data = data.detach().clone()
+    data = data.repeat(n, 1, 1, 1).to(device)
     model.to(device)
 
     # set up intermediate activation

@@ -18,7 +18,7 @@ Dropviz uses the `eval()` and `train()` methods to access the intermediate outpu
  - Any dropout layers (or other layers that behave differently at train and eval times) are turned on during a forward pass during which the intermediate output, to be used as the target for the intermediate output in eval mode, is collected.  
  - Gradient descent is used to adjust the input image with the model in eval mode. Users may need to play with max iterations and learning rate to get convergeance.
  - Model predictions are provided for both the original and augmented image for comparison purposes.
-
+ 
 ```
 import dropviz
 
@@ -26,8 +26,11 @@ corrupted_image, (model_output_original, model_output_corrupt) = dropviz.augment
                                                                                  <your_model>.<some_layer>,
                                                                                  <device>,
                                                                                  <input_image>,
+                                                                                 <num_samples>,
                                                                                  <max_iters>,
                                                                                  <tolerance>,
                                                                                  <learning_rate>
                                                                                 )
+plt.imshow(corrupted_image[0])
+plt.title('First Augmented Image (1 of <num_samples>)')
 ```
