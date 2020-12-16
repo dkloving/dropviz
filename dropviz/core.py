@@ -15,7 +15,7 @@ def get_activation(variable):
     return hook
 
 
-def augment(model, layer, device, data, n, max_epochs, loss_tolerance, lr):
+def augment(model, layer, device, data, n, max_epochs, loss_tolerance, lr, verbosity=0):
 
     # copy and send the data and model to the device
     data = data.detach().clone()
@@ -55,10 +55,15 @@ def augment(model, layer, device, data, n, max_epochs, loss_tolerance, lr):
         # update data
         optimizer.step()
 
-        if ep % 1000 == 0:
-            print(f"Epoch {ep+1}, loss {loss}")
-        ep += 1
-    print(f"Final loss {loss}")
+        if verbosity > 0:
+            if ep % 1000 == 0:
+                print(f"Epoch {ep+1}, loss {loss}")
+            ep += 1
+    if verbosity > 0:
+        print(f"Final loss {loss}")
+
+    if loss > loss_tolerance:
+        print(f"WARNING: at max iterations loss did not converge. Final loss was {loss}, goal was {loss_tolerance}.")
 
     # clean up and remove activation hook
     activation_hook.remove()
