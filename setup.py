@@ -2,7 +2,7 @@ from setuptools import setup, find_packages
 
 
 setup(name='dropviz',
-      version='0.0.4',
+      version='0.0.5',
       description='Visualize dropout as data augmentation.',
       author='David Loving',
       author_email='user@email.com',

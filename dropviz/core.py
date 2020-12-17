@@ -58,7 +58,8 @@ def augment(model, layer, device, data, n, max_epochs, loss_tolerance, lr, verbo
         if verbosity > 0:
             if ep % 1000 == 0:
                 print(f"Epoch {ep+1}, loss {loss}")
-            ep += 1
+        ep += 1
+
     if verbosity > 0:
         print(f"Final loss {loss}")
 
